@@ -3,7 +3,8 @@ const {
     newGame,
     showScore,
     addTurn,
-    lightsOn
+    lightsOn,
+    showTurns
 } = require("../game");
 
 beforeAll(() => {
@@ -29,6 +30,9 @@ describe("game object contains correct keys", () => {
     });
     test("choices contain correct ids", () => {
         expect(game.choices).toEqual(["button1", "button2", "button3", "button4"]);
+    });
+    test("turnNumber key exists", () => {
+        expect("turnNumber" in game).toBe(true);
     });
 });
 
@@ -74,5 +78,10 @@ describe("gameplay works correctly", () => {
         let button = document.getElementById(game.currentGame[0]);
         lightsOn(game.currentGame[0]);
         expect(button.classList).toContain(game.currentGame[0] + "light");
+    });
+    test("showTurns should update game.turnNumber", () => {
+        game.turnNumber = 42;
+        showTurns();
+        expect(game.turnNumber).toBe(0);
     });
 });
